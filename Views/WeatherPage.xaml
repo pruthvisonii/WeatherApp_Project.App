@@ -1,0 +1,13 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WeatherApp_Project.Views"
+             xmlns:viewmodels="clr-namespace:WeatherApp_Project.ViewModels"
+             x:Class="WeatherApp_Project.Views.WeatherPage">
+    <ContentPage.BindingContext>
+        <viewmodels:WeatherPageViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <Label Text="{Binding WeatherData}" />
+    </StackLayout>
+</ContentPage>
