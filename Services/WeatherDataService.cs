@@ -1,50 +1,28 @@
 ﻿using System;
-using System.Net.Http;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using WeatherApp_Project.Models;
 
-namespace WeatherApp_Project.Services
+namespace WeatherApp.Services
 {
-    public class WeatherDataService
+    public static class ApiService
     {
-        private const string ApiKey = "e0d1f860126c143dab0ab18ae2087118\r\n"; // Replace with your actual API key
-
-        public async Task<WeatherData> GetWeatherDataAsync(string location)
+        public static async Task<Root> GetWeather(double latitude, double longitude)
         {
-            using (var client = new HttpClient())
-            {
-                try
-                {
-                    // Send a GET request to the weather data API
-                    string apiUrl = $"https://api.weatherapi.com/v1/current.json?key={ApiKey}&q={location}&aqi=no";
-                    var response = await client.GetAsync(apiUrl);
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetStringAsync(string.Format("http://api.openweathermap.org/data/2.5/forecast?lat={0}&lon={1}&units=metric&appid=52f6322a814630ee6c1682e85e031a22", latitude, longitude));
+            return JsonConvert.DeserializeObject<Root>(response);
+        }
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        // Read the response content
-                        string json = await response.Content.ReadAsStringAsync();
-
-                        // Deserialize the JSON response to a WeatherData object
-                        var weatherData = JsonConvert.DeserializeObject<WeatherData>(json);
-
-                        return weatherData;
-                    }
-                    else
-                    {
-                        // Handle the case when the API request is not successful
-                        Console.WriteLine($"API request failed with status code {response.StatusCode}");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Handle any exceptions that occurred during the API request
-                    Console.WriteLine($"An error occurred: {ex.Message}");
-                }
-            }
-
-            // Return null if the weather data couldn't be retrieved
-            return null;
+        public static async Task<Root> GetWeatherByCity(string city)
+        {
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetStringAsync(string.Format("http://api.openweathermap.org/data/2.5/forecast?q={0}&units=metric&appid=52f6322a814630ee6c1682e85e031a22", city)); // {API key}
+            return JsonConvert.DeserializeObject<Root>(response);
         }
     }
 }
