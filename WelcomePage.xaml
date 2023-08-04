@@ -1,29 +1,54 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WeatherApp.WelcomePage"
+             x:Class="WeatherApp_Project.WelcomePage"
              Title="WelcomePage"
              Background="#512DA8">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#FFCA28" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="FontSize" Value="Large" />
+        </Style>
+    </ContentPage.Resources>
+
     <StackLayout VerticalOptions="Center"
                  Margin="20"
-                 Spacing="0">
+                 Spacing="20">
+
         <Image Source="icon_02d"
                HeightRequest="200"
-               WidthRequest="200" />
+               WidthRequest="200"
+               Aspect="AspectFit" />
+
         <Label Text="Weather"
-               FontSize="40"
-               TextColor="#ffca28" />
-        <Label Text="Forecase App."
-               FontSize="40"
-               TextColor="White" />
-        <Label Text="It's the newest weather app. It has bunch of features and that includes most of the ones that every weather app has."
+               FontSize="48"
+               HorizontalOptions="Center"
+               FontAttributes="Bold" />
+
+        <Label Text="Forecast App."
+               FontSize="48"
+               HorizontalOptions="Center"
+               FontAttributes="Bold" />
+
+        <Label Text="Discover the Weather"
                TextColor="White"
+               HorizontalOptions="Center"
+               FontSize="Medium" />
+
+        <Label Text="The newest weather app with a bunch of exciting features to help you stay informed about the weather conditions."
+               TextColor="White"
+               HorizontalOptions="Center"
                FontSize="Small" />
+
         <Button Text="Get Started"
-                FontSize="Large"
-                BackgroundColor="#ffca28"
-                WidthRequest="250"
-                Margin="0,50,0,0"
+                WidthRequest="200"
+                HeightRequest="60"
+                HorizontalOptions="Center"
                 x:Name="BtnGetStarted"
                 Clicked="BtnGetStarted_Clicked"/>
     </StackLayout>
